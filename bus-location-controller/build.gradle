@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':bus-location-service')
+    implementation project(':bus-location-persistence')
+    implementation project(':bus-location-integration')
+}

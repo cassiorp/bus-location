@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+---
+
+api:
+  datapoa: "http://www.poatransporte.com.br/php/facades/process.php"
+
+
+spring:
+  data:
+    mongodb:
+      database: buslines
+      host: localhost
+      port: 27017
+  config:
+    activate:
+      on-profile: dev
+
+---
+
+spring:
+  data:
+    mongodb:
+      database: buslines-test
+      host: localhost
+      port: 27017
+  config:
+    activate:
+      on-profile: test
