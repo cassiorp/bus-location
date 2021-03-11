@@ -1,7 +1,7 @@
 package br.com.forttiori;
 
 import br.com.forttiori.entity.BusLine;
-import br.com.forttiori.repository.BusLinesRespository;
+import br.com.forttiori.repository.BusLinesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +26,7 @@ public class BusLineServiceImplTest {
     BusLinesClient busLinesClient;
 
     @Mock
-    BusLinesRespository busLinesRespository;
+    BusLinesRepository busLinesRepository;
 
     @InjectMocks
     BusLinesServiceImpl busLinesService;
@@ -50,9 +50,9 @@ public class BusLineServiceImplTest {
 
         when(busLinesClient.getBusLines()).thenReturn(response);
 
-        when(busLinesRespository.count()).thenReturn(0L);
+        when(busLinesRepository.count()).thenReturn(0L);
 
-        when(busLinesRespository.saveAll(busLines)).thenReturn(createBusLins());
+        when(busLinesRepository.saveAll(busLines)).thenReturn(createBusLins());
 
         var saved = this.busLinesService.listAndSaveBusLines();
         var expected = createBusLins();

@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BusLinesRespository extends MongoRepository<BusLine, String> {
+public interface BusLinesRepository extends MongoRepository<BusLine, String> {
 }

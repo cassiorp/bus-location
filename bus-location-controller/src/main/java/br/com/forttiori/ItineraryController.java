@@ -1,5 +1,6 @@
 package br.com.forttiori;
 
+import br.com.forttiori.entity.Itinerary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +14,10 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class ItineraryController {
 
-    private final ItineraryClient itineraryClient;
+    private final ItineraryServiceImpl itineraryService;
 
     @GetMapping("/{id}")
-    public String getItinerary(@PathVariable String id) {
-        String eti = this.itineraryClient.getItinerary(id);
-        //String[] quebra = eti.split("\\{");
-        return eti;
+    public Itinerary getItinerary(@PathVariable String id) {
+        return this.itineraryService.listAndSave(id);
     }
 }

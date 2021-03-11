@@ -2,7 +2,7 @@ package br.com.forttiori;
 
 
 import br.com.forttiori.entity.BusLine;
-import br.com.forttiori.repository.BusLinesRespository;
+import br.com.forttiori.repository.BusLinesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +19,14 @@ import static org.apache.commons.lang3.StringEscapeUtils.unescapeJava;
 public class BusLinesServiceImpl implements BusLineService {
 
     private final BusLinesClient busLinesClient;
-    private final BusLinesRespository busLinesRespository;
+    private final BusLinesRepository busLinesRepository;
 
     @Override
     public List<BusLine> listAndSaveBusLines() {
         String response = this.busLinesClient.getBusLines();
         List<String> lines = this.mapStringToListString(response);
         List<BusLine> busLines = new ArrayList<>();
-        if (busLinesRespository.count() == 0) {
+        if (busLinesRepository.count() == 0) {
             lines.stream().forEach(l -> {
                 busLines.add(BusLine.builder().id(extractId(l))
                         .codigo(extractCodigo(l))
@@ -34,9 +34,9 @@ public class BusLinesServiceImpl implements BusLineService {
                         .build()
                 );
             });
-            return this.busLinesRespository.saveAll(busLines);
+            return this.busLinesRepository.saveAll(busLines);
         }
-        return this.busLinesRespository.findAll();
+        return this.busLinesRepository.findAll();
     }
 
     public String getBusLinesAsString() {

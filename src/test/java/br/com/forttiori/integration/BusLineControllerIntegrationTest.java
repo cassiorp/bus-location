@@ -2,7 +2,7 @@ package br.com.forttiori.integration;
 
 import br.com.forttiori.BusLineService;
 import br.com.forttiori.entity.BusLine;
-import br.com.forttiori.repository.BusLinesRespository;
+import br.com.forttiori.repository.BusLinesRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class BusLineControllerIntegrationTest {
     BusLineService busLineService;
 
     @Autowired
-    BusLinesRespository busLinesRespository;
+    BusLinesRepository busLinesRepository;
 
     @Autowired
     ObjectMapper objectMapper;
