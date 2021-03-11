@@ -1,6 +1,7 @@
 package br.com.forttiori;
 
 import br.com.forttiori.entity.BusLine;
+import br.com.forttiori.impl.BusLinesServiceImpl;
 import br.com.forttiori.repository.BusLinesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

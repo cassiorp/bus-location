@@ -1,5 +1,7 @@
-package br.com.forttiori;
+package br.com.forttiori.impl;
 
+import br.com.forttiori.ItineraryClient;
+import br.com.forttiori.ItineraryService;
 import br.com.forttiori.entity.Itinerary;
 import br.com.forttiori.repository.ItineraryRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +16,12 @@ import static org.apache.commons.lang3.StringEscapeUtils.unescapeJava;
 
 @Service
 @RequiredArgsConstructor
-public class ItineraryServiceImpl {
+public class ItineraryServiceImpl implements ItineraryService {
 
     private final ItineraryClient itineraryClient;
     private final ItineraryRepository itineraryRepository;
 
+    @Override
     public Itinerary listAndSave(String id) {
         Optional<Itinerary> itinerary = this.itineraryRepository.findById(id);
         if (itinerary.isPresent()) {

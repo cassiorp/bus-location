@@ -1,6 +1,8 @@
-package br.com.forttiori;
+package br.com.forttiori.impl;
 
 
+import br.com.forttiori.BusLineService;
+import br.com.forttiori.BusLinesClient;
 import br.com.forttiori.entity.BusLine;
 import br.com.forttiori.repository.BusLinesRepository;
 import lombok.RequiredArgsConstructor;
