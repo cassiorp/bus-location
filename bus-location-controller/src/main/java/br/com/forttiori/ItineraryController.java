@@ -2,6 +2,7 @@ package br.com.forttiori;
 
 import br.com.forttiori.entity.Itinerary;
 import br.com.forttiori.impl.ItineraryServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,8 @@ public class ItineraryController {
     private final ItineraryService itineraryService;
 
     @GetMapping("/{id}")
-    public Itinerary getItinerary(@PathVariable String id) {
+    public Itinerary getItinerary(@PathVariable String id) throws JsonProcessingException {
         return this.itineraryService.listAndSave(id);
     }
+
 }

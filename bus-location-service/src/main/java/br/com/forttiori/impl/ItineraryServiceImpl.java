@@ -2,8 +2,11 @@ package br.com.forttiori.impl;
 
 import br.com.forttiori.ItineraryClient;
 import br.com.forttiori.ItineraryService;
+import br.com.forttiori.entity.BusLine;
 import br.com.forttiori.entity.Itinerary;
 import br.com.forttiori.repository.ItineraryRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,25 +23,44 @@ public class ItineraryServiceImpl implements ItineraryService {
 
     private final ItineraryClient itineraryClient;
     private final ItineraryRepository itineraryRepository;
+    private final ObjectMapper mapper;
 
     @Override
-    public Itinerary listAndSave(String id) {
-        Optional<Itinerary> itinerary = this.itineraryRepository.findById(id);
-        if (itinerary.isPresent()) {
-            return itinerary.get();
+    public Itinerary listAndSave(String id) throws JsonProcessingException {
+        Optional<Itinerary> find = this.itineraryRepository.findById(id);
+        if(find.isPresent()){
+            return find.get();
         }
+        String json = this.itineraryClient.getItinerary(id);
+        Itinerary itinerary = mapper.readValue(json, Itinerary.class);
+        Itinerary itinerayToSave = this.itineraryRepository.save(itinerary);
 
-        String line = this.itineraryClient.getItinerary(id);
+        return itinerayToSave;
 
-        Itinerary itineraryToSave = Itinerary.builder()
-                .id(extractId(line))
-                .nome(extractNome(line))
-                .codigo(extractCodigo(line))
-                .locations(locations(line))
-                .build();
-
-        return this.itineraryRepository.save(itineraryToSave);
     }
+
+
+
+
+//
+//    @Override
+//    public Itinerary listAndSave(String id) {
+//        Optional<Itinerary> itinerary = this.itineraryRepository.findById(id);
+//        if (itinerary.isPresent()) {
+//            return itinerary.get();
+//        }
+//
+//        String line = this.itineraryClient.getItinerary(id);
+//
+//        Itinerary itineraryToSave = Itinerary.builder()
+//                .id(extractId(line))
+//                .nome(extractNome(line))
+//                .codigo(extractCodigo(line))
+//                .locations(locations(line))
+//                .build();
+//
+//        return this.itineraryRepository.save(itineraryToSave);
+//    }
 
     public String extractId(String line) {
         return Optional.ofNullable(line.substring(12, 16))
